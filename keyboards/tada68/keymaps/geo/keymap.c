@@ -8,6 +8,7 @@
 #define _FL 1
 
 #define _______ KC_TRNS
+#define _4SPACE M(0)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -34,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,----------------------------------------------------------------.
    * |~ `| F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|Del    |Pwr |
    * |----------------------------------------------------------------|
-   * |     |   |Up |   |   |   |   |   |   |   |   |   |   |     |Ins |
+   * |4*Spc|   |Up |   |   |   |   |   |   |   |   |   |   |     |Ins |
    * |----------------------------------------------------------------|
    * |      |<- |Dn | ->|   |   |   |   |   |   |   |   |        |Hme |
    * |----------------------------------------------------------------|
@@ -45,8 +46,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [_FL] = KEYMAP_ANSI(
   _______, KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, KC_PWR,  \
-  _______,_______,KC_UP, _______,_______,_______,_______,_______,_______,_______,_______, BL_DEC,BL_INC, BL_TOGG,KC_INS, \
+  _4SPACE,_______,KC_UP, _______,_______,_______,_______,_______,_______,_______,_______, BL_DEC,BL_INC, BL_TOGG,KC_INS, \
   _______,KC_LEFT,KC_DOWN,KC_RIGHT,_______,_______,_______,_______,_______,_______,KC_LGUI,_______, _______,KC_HOME, \
   _______,_______,_______,BL_DEC, BL_TOGG,BL_INC, _______,_______,KC_VOLD,KC_VOLU,KC_MUTE,_______,_______,KC_END, \
   _______,_______,_______,                 _______,               _______,_______,_______,KC_HOME,_______,KC_END),
+};
+
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) // this is the function signature -- just copy/paste it into your keymap file as it is.
+{
+  switch(id) {
+    case 0: // this would trigger when you hit a key mapped as M(0)
+      if (record->event.pressed) {
+        return MACRO( I(16), T(SPACE), T(SPACE), T(SPACE), T(SPACE), END); // this sends the string '    ' when the macro executes
+      }
+      break;
+  }
+  return MACRO_NONE;
 };
