@@ -62,7 +62,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) //
         return MACRO( I(5), T(SPACE), T(SPACE), T(SPACE), T(SPACE), END); // this sends the string '    ' when the macro executes
       }
       break;
-    case 1:
+    case 1: // send win + l to lock
       if (record->event.pressed){
         return MACRO(I(5), D(LGUI), D(L), U(L), U(LGUI), END);
       }
