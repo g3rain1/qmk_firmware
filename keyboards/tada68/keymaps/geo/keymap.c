@@ -9,6 +9,7 @@
 
 #define _______ KC_TRNS
 #define _4SPACE M(0)
+#define LOCK M(1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -37,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |----------------------------------------------------------------|
    * |4*Spc|   |Up |   |   |   |   |   |   |   |   |   |   |     |Ins |
    * |----------------------------------------------------------------|
-   * |      |<- |Dn | ->|   |   |   |   |   |   |   |   |        |Hme |
+   * |      |<- |Dn | ->|   |   |   |   |   |Lck|   |   |        |Hme |
    * |----------------------------------------------------------------|
    * |        |   |   |Bl-|BL |BL+|   |   |VU-|VU+|MUT|      |   |End |
    * |----------------------------------------------------------------|
@@ -47,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FL] = KEYMAP_ANSI(
   _______, KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,          KC_PWR, \
   _4SPACE,_______,KC_UP, _______,_______,_______,_______,_______,_______,_______,_______, _______,_______, _______,KC_INS, \
-  _______,KC_LEFT,KC_DOWN,KC_RIGHT,_______,_______,_______,_______,_______,_______,KC_LGUI,_______, _______,      KC_HOME, \
+  _______,KC_LEFT,KC_DOWN,KC_RIGHT,_______,_______,_______,_______,_______,LOCK,_______,_______, _______,      KC_HOME, \
   _______,_______,_______,BL_DEC, BL_TOGG,BL_INC, _______,_______,KC_VOLD,KC_VOLU,KC_MUTE,_______,_______,         KC_END, \
   _______,_______,_______,                     _______,                   _______,_______,_______,KC_HOME,_______,KC_END),
 };
@@ -61,6 +62,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) //
         return MACRO( I(5), T(SPACE), T(SPACE), T(SPACE), T(SPACE), END); // this sends the string '    ' when the macro executes
       }
       break;
-  }
-  return MACRO_NONE;
+    case 1:
+      if (record->event.pressed){
+        return MACRO(I(5), D(LGUI), D(L), U(L), U(LGUI), END);
+      }
+      break;
+    }
+    return MACRO_NONE;
 };
