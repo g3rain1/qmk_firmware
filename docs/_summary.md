@@ -3,6 +3,7 @@
 * [Introduction](home.md)
 * [QMK Overview](qmk_overview.md)
 * [Build Environment Setup](build_environment_setup.md)
+* [Make instructions](make_instructions.md)
 
 ### Making a keymap
 * [Keymap overview](keymap.md)
@@ -23,7 +24,9 @@
 * [Porting your keyboard to QMK](porting_your_keyboard_to_qmk.md)
 * [Modding your keyboard](modding_your_keyboard.md)
 * [Adding features to QMK](adding_features_to_qmk.md)
+* [ISP flashing guide](isp_flashing_guide.md)
   
 ### Other topics
 * [General FAQ](faq.md)
 * [Differences from TMK](differences_from_tmk.md)
+* [Using Eclipse with QMK](eclipse.md)
