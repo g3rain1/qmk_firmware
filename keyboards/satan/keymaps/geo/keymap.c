@@ -33,16 +33,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, \
   LT(_FL,KC_F2), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  \
   KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, MO(_FL), \
-  KC_LCTL, KC_LGUI, KC_LALT,          KC_SPC,                                                KC_RALT, KC_RGUI, KC_MENU, KC_RCTL),
+  KC_LCTL, KC_LGUI, KC_LALT,          KC_SPC,                                                KC_RALT, KC_PGUP, KC_PGDN, KC_RCTL),
 
 [_FL] = KEYMAP_HHKB(
-   _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL, _______, \
-  _4SPACE, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,   _______, _______,  \
-  _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT,          KC_PENT, \
-  _______,          _______, _______, _______, _______, _______, KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN, _______, _______, \
-  _______, _______, _______,                   _______,                                     _______, _______, _______, _______),
+   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL, KC_GRV, \
+  _4SPACE, _______, KC_UP, _______, _______, _______, _______, _______, _______,   KC_INS, KC_PSCR, KC_SLCK, KC_PAUS,  _______,  \
+  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, LOCK, KC_PAST, KC_PSLS,           KC_PENT, \
+  _______,          _______, _______, _______, _______, _______, _______,  _______, _______, KC_PPLS, KC_PMNS, _______, _______, \
+  _______, _______, _______,                   _______,                                     _______, KC_HOME, KC_END, _______)
 };
-
 
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) // this is the function signature -- just copy/paste it into your keymap file as it is.
@@ -50,7 +49,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) //
   switch(id) {
     case 0: // this would trigger when you hit a key mapped as M(0)
       if (record->event.pressed) {
-        return MACRO( I(5), T(SPACE), T(SPACE), T(SPACE), T(SPACE), END); // this sends the string '    ' when the macro executes
+        return MACRO( I(1), T(SPACE), T(SPACE), T(SPACE), T(SPACE), END); // this sends the string '    ' when the macro executes
       }
       break;
     case 1: // send win + l to lock
