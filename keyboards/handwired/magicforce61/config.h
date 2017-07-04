@@ -22,38 +22,82 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6062
+#define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    techkeys.us
-#define PRODUCT         sixkeykeyboard
-#define DESCRIPTION     A little 6-key macro pad
+#define MANUFACTURER    Hexwire
+#define PRODUCT         Magicforce 61
+#define DESCRIPTION     Handwired Magicforce 61
 
 /* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 14
 
-/* define if matrix has ghost */
+/*
+ * Keyboard Matrix Assignments
+ *
+ * Change this to how you wired your keyboard
+ * COLS: AVR pins used for columns, left to right
+ * ROWS: AVR pins used for rows, top to bottom
+ * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
+ *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
+ *
+*/
+#define MATRIX_ROW_PINS { D0, D1, D2, D3, D4 }
+#define MATRIX_COL_PINS { B5, B4, B3, B2, B1, B0, E7, E6, F0, F1, F2, F3, F4, F5 } 
+#define UNUSED_PINS
+
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION COL2ROW
+
+// #define BACKLIGHT_PIN B7
+// #define BACKLIGHT_BREATHING
+// #define BACKLIGHT_LEVELS 3
+
+
+/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+#define DEBOUNCING_DELAY 5
+
+/* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 
 /* number of backlight levels */
-#define BACKLIGHT_LEVELS 0
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-
-/* Force NKRO Mode - If forced on, must be disabled via magic key (default = LShift+RShift+N) */
-#define FORCE_NKRO
+/*
+ * Force NKRO
+ *
+ * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
+ * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
+ * makefile for this to work.)
+ *
+ * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
+ * until the next keyboard reset.
+ *
+ * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
+ * fully operational during normal computer usage.
+ *
+ * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
+ * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
+ * bootmagic, NKRO mode will always be enabled until it is toggled again during a
+ * power-up.
+ *
+ */
+//#define FORCE_NKRO
 
 /*
- * Magic key options
- * These options allow the magic key functionality to be changed. This is useful
- * if your keyboard/keypad is missing keys and you want magic key support.
+ * Magic Key Options
+ *
+ * Magic keys are hotkey commands that allow control over firmware functions of
+ * the keyboard. They are best used in combination with the HID Listen program,
+ * found here: https://www.pjrc.com/teensy/hid_listen.html
+ *
+ * The options below allow the magic key functionality to be changed. This is
+ * useful if your keyboard/keypad is missing keys and you want magic key support.
+ *
  */
 
 /* key combination for magic key command */
@@ -66,7 +110,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS  true
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM false
 
-/* remap magic keys */
+/* override magic key keymap */
+//#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
+//#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
+//#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
 //#define MAGIC_KEY_HELP1          H
 //#define MAGIC_KEY_HELP2          SLASH
 //#define MAGIC_KEY_DEBUG          D
@@ -89,7 +136,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_LAYER8         8
 //#define MAGIC_KEY_LAYER9         9
 //#define MAGIC_KEY_BOOTLOADER     PAUSE
-//#define MAGIC_KEY_LOCK             BSLS
+//#define MAGIC_KEY_LOCK           CAPS
 //#define MAGIC_KEY_EEPROM         E
 //#define MAGIC_KEY_NKRO           N
 //#define MAGIC_KEY_SLEEP_LED      Z
@@ -107,8 +154,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* disable action features */
 //#define NO_ACTION_LAYER
-#define NO_ACTION_TAPPING
-#define NO_ACTION_ONESHOT
+//#define NO_ACTION_TAPPING
+//#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
