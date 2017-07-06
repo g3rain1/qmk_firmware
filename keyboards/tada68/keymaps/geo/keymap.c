@@ -47,8 +47,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [_FL] = KEYMAP_ANSI(
   KC_ESC, KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,          KC_GRV, \
-  _4SPACE,_______,KC_UP, _______,_______,_______,_______,_______,_______,KC_INS,KC_PSCR, KC_SLCK,KC_PAUS, _______,KC_INS, \
-  _______,KC_LEFT,KC_DOWN,KC_RIGHT,_______,_______,_______,_______,_______,LOCK,_______,KC_PGUP, _______,      _______, \
+  _4SPACE,_______,KC_UP, _______,_______,_______,_______,_______,KC_UP,KC_INS,KC_PSCR, KC_SLCK,KC_PAUS, _______,KC_INS, \
+  _______,KC_LEFT,KC_DOWN,KC_RIGHT,_______,_______,_______,KC_LEFT,KC_DOWN,KC_RIGHT,_______,KC_PGUP, _______,      _______, \
   _______,_______,_______,BL_DEC, BL_TOGG,BL_INC, _______,_______,KC_HOME,KC_END,KC_PGDN,_______,_______,         _______, \
   _______,_______,_______,                     _______,                   _______,_______,_______,_______,_______,_______),
 };
