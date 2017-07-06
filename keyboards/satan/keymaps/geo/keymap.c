@@ -48,7 +48,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) //
   switch(id) {
     case 0: // this would trigger when you hit a key mapped as M(0)
       if (record->event.pressed) {
-        return MACRO( I(1), T(SPACE), T(SPACE), T(SPACE), T(SPACE), END); // this sends the string '    ' when the macro executes
+        return MACRO( I(4), T(SPACE), T(SPACE), T(SPACE), T(SPACE), END); // this sends the string '    ' when the macro executes
       }
       break;
     case 1: // send win + l to lock
