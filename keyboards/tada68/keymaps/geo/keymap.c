@@ -10,6 +10,11 @@
 #define _______ KC_TRNS
 #define _4SPACE M(0)
 #define LOCK M(1)
+#define BRTG M(2)
+#define BRSU M(3)
+#define BRSD M(4)
+#define BRPL1 M(5)
+#define BRPL5 M(6)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -48,9 +53,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FL] = KEYMAP_ANSI(
   KC_ESC, KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,          KC_GRV, \
   _4SPACE,_______,KC_UP, _______,_______,_______,_______,_______,KC_UP,KC_INS,KC_PSCR, KC_SLCK,KC_PAUS, _______,KC_INS, \
-  _______,KC_LEFT,KC_DOWN,KC_RIGHT,_______,_______,_______,KC_LEFT,KC_DOWN,KC_RIGHT,_______,KC_PGUP, _______,      _______, \
-  _______,_______,_______,BL_DEC, BL_TOGG,BL_INC, _______,_______,KC_HOME,KC_END,KC_PGDN,_______,_______,         _______, \
-  _______,_______,_______,                     _______,                   _______,_______,_______,_______,_______,_______),
+  _______,KC_LEFT,KC_DOWN,KC_RIGHT,_______,_______,_______,KC_LEFT,KC_DOWN,KC_RIGHT,_______,KC_PGUP, _______,      BRPL1, \
+  _______,_______,_______,BL_DEC, BL_TOGG,BL_INC, _______,_______,KC_HOME,KC_END,KC_PGDN,_______,       BRSU,      BRPL5, \
+  _______,_______,_______,                     _______,                   _______,_______,_______,BRTG, BRSD,_______),
 };
 
 
@@ -65,6 +70,33 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) //
     case 1: // send win + l to lock
       if (record->event.pressed){
         return MACRO(I(5), D(LGUI), D(L), U(L), U(LGUI), END);
+      }
+      break;
+    case 2: // send win + l to lock
+      if (record->event.pressed){
+        breathing_toggle();
+      }
+      break;
+    case 3: // send win + l to lock
+      if (record->event.pressed){
+        breathing_speed_inc(1);
+      }
+    break;
+      case 4: // send win + l to lock
+      if (record->event.pressed){
+        breathing_speed_dec(1);
+      }
+      break;
+    case 5: // send win + l to lock
+      if (record->event.pressed){
+        breathing_speed_set(1);
+        breathing_pulse();
+      }
+      break;
+    case 6: // send win + l to lock
+      if (record->event.pressed){
+        breathing_speed_set(5);
+        breathing_pulse();
       }
       break;
     }

@@ -36,6 +36,7 @@ util/Win_Check_Output.txt
 .vscode/launch.json
 .vscode/tasks.json
 .stfolder
+.vscode/*
 
 # ignore image files
 *.png
