@@ -9,6 +9,9 @@
         "*.h": "c",
         "*.c": "c",
         "*.cpp": "cpp",
-        "*.hpp": "cpp"
+        "*.hpp": "cpp",
+        "triple_buffered_object_tests.cpp": "c",
+        "adafruit_ble.cpp": "c",
+        "ps3usb.ino": "c"
     }
 }
