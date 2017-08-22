@@ -14,6 +14,7 @@
 #define LOCK M(1)
 // Fillers to make layering more clear
 #define _______ KC_TRNS
+#define DANCE_LAYERS 0
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -32,9 +33,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BL] = KEYMAP_HHKB(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   KC_MINS, KC_EQL,  KC_BSPC, KC_DEL, \
   KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,      KC_BSLS, \
-  LT(_FL,KC_F2), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,           KC_ENT,  \
+  LT(_FL,KC_F2), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,            KC_ENT,  \
   KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,         KC_RSFT, KC_ESC, \
-  KC_LCTL,  KC_LGUI,  KC_LALT,          KC_SPC,                                               KC_RALT,   MO(_FL),   KC_RGUI,   KC_RCTL),
+  KC_LCTL,  KC_LGUI,  KC_LALT,          KC_SPC,                                       KC_RALT, TD(DANCE_LAYERS),  KC_RGUI,    KC_RCTL),
 
   /* Keymap _FL: Function Layer
    * ,-----------------------------------------------------------.
@@ -50,24 +51,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------'
    */
 [_FL] = KEYMAP_HHKB(
-   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL, _______, \
+  KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, \
   _4SPACE,   _______, KC_UP, _______, _______, _______, _______, _______, KC_UP,   KC_INS, KC_PSCR, KC_SLCK, KC_PAUS,          _______, \
   _______,     KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_PGUP,              _______, \
-  _______,        _______, _______, _______, _______, _______, _______,  TG(_ML), KC_HOME, KC_END, KC_PGDN,           _______, KC_GRV, \
+  _______,        _______, _______, _______, _______, _______, _______,  TG(_ML), KC_HOME, KC_END, KC_PGDN,           _______, _______, \
   _______,   _______,   _______,                   _______,                                     _______,   _______,  _______,  _______),
 
 [_ML] = KEYMAP_HHKB(
-   _______,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,  _______,  _______,  _______, _______, \
-  _______,   KC_BTN1,KC_MS_U, KC_BTN2, _______, _______, _______, _______, KC_WH_U,   _______, _______, _______, _______,          _______, \
+ _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______,   KC_BTN1,KC_MS_U, KC_BTN2, _______, _______, _______, KC_BTN1, KC_WH_U,   KC_BTN2, _______, _______, _______,        _______, \
   _______,     KC_MS_L,KC_MS_D,KC_MS_R, _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_R, _______, _______,              _______, \
   _______,        _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______,           _______, _______, \
   _______,   _______,   _______,                   _______,                                     _______,   _______,  _______,  _______)
 };
 
+void dance_layers (qk_tap_dance_state_t *state, void *user_data) {
+  if(state->count == 1){
+    layer_off(_FL);
+    layer_off(_ML);
+  }
+  else if(state->count == 2){
+    layer_on(_FL);
+    layer_off(_ML);
+  }
+  else if(state->count == 3){
+    layer_on(_ML);
+    layer_off(_FL);
+  }
+}
+
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for Esc, twice for Caps Lock
+  [DANCE_LAYERS]  = ACTION_TAP_DANCE_FN(dance_layers)
+// Other declarations would go here, separated by commas, if you have them
+};
+
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) // this is the function signature -- just copy/paste it into your keymap file as it is.
 {
   switch(id) {
-    case 0: // this would trigger when you hit a key mapped as M(0)
+    case 0: // this would trigger when you hit a key mapped as M(0)z
       if (record->event.pressed) {
         return MACRO( I(4), T(SPACE), T(SPACE), T(SPACE), T(SPACE), END); // this sends the string '    ' when the macro executes
       }
