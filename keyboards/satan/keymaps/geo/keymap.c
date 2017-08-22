@@ -65,27 +65,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,   _______,   _______,                   _______,                                     _______,   _______,  _______,  _______)
 };
 
-void dance_layers (qk_tap_dance_state_t *state, void *user_data) {
-  if(state->count == 1){
-    layer_off(_FL);
-    layer_off(_ML);
+bool held;
+void dance_layers(qk_tap_dance_state_t *state, void *user_data)
+{
+
+  if (state->pressed)
+  {
+    layer_on(_FL);
+    held = true;
   }
-  else if(state->count == 2){
+  switch (state->count)
+  {
+  case 1: //off all layers, just base on
+    if (!state->pressed)
+    {
+      layer_off(_ML);
+      layer_off(_FL);
+      held = false;
+    }
+    break;
+  case 2: //function layer on
     layer_on(_FL);
     layer_off(_ML);
-  }
-  else if(state->count == 3){
+    break;
+  case 3: //mouse layeron
     layer_on(_ML);
+    layer_off(_FL);
+    break;
+  }
+}
+void dance_layers_finish(qk_tap_dance_state_t *state, void *user_data)
+{
+  if(held)
+  {
     layer_off(_FL);
   }
 }
-
-
 qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for Esc, twice for Caps Lock
-  [DANCE_LAYERS]  = ACTION_TAP_DANCE_FN(dance_layers)
-// Other declarations would go here, separated by commas, if you have them
-};
+        [0] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_layers, dance_layers_finish)};
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) // this is the function signature -- just copy/paste it into your keymap file as it is.
 {
