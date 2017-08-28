@@ -15,7 +15,9 @@
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define DANCE_LAYERS 0
-
+#define NKTG MAGIC_TOGGLE_NKRO
+#define NKON MAGIC_HOST_NKRO
+#define NKOFF MAGIC_UNHOST_NKRO
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
    * ,-----------------------------------------------------------.
@@ -54,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, \
   _4SPACE,   _______, KC_UP, _______, _______, _______, _______, _______, KC_UP,   KC_INS, KC_PSCR, KC_SLCK, KC_PAUS,          _______, \
   _______,     KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_PGUP,              _______, \
-  _______,        _______, _______, _______, _______, _______, _______,  TG(_ML), KC_HOME, KC_END, KC_PGDN,           _______, _______, \
+  _______,        _______, _______, _______, _______, _______, NKTG  ,  TG(_ML), KC_HOME, KC_END, KC_PGDN,           _______, _______, \
   _______,   _______,   _______,                   _______,                                     _______,   _______,  _______,  _______),
 
 [_ML] = KEYMAP_HHKB(
@@ -65,14 +67,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,   _______,   _______,                   _______,                                     _______,   _______,  _______,  _______)
 };
 
-bool held;
+bool fn_held;
 void dance_layers(qk_tap_dance_state_t *state, void *user_data)
 {
 
   if (state->pressed)
   {
     layer_on(_FL);
-    held = true;
+    fn_held = true;
   }
   switch (state->count)
   {
@@ -81,7 +83,7 @@ void dance_layers(qk_tap_dance_state_t *state, void *user_data)
     {
       layer_off(_ML);
       layer_off(_FL);
-      held = false;
+      fn_held = false;
     }
     break;
   case 2: //function layer on
@@ -96,13 +98,15 @@ void dance_layers(qk_tap_dance_state_t *state, void *user_data)
 }
 void dance_layers_finish(qk_tap_dance_state_t *state, void *user_data)
 {
-  if(held)
+  if(fn_held)
   {
     layer_off(_FL);
+    fn_held = false;
   }
+  
 }
 qk_tap_dance_action_t tap_dance_actions[] = {
-        [0] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_layers, dance_layers_finish)};
+        [DANCE_LAYERS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_layers, dance_layers_finish)};
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) // this is the function signature -- just copy/paste it into your keymap file as it is.
 {
