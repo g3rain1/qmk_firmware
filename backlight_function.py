@@ -20,5 +20,5 @@ def frange(start,end,steps):
         count += 1
 
 
-'{' + ', '.join(str(math.erf(x)) for x in frange(-1.0,1.0, 1.0/num_vals) ) + '}'
-'{' + ', '.join(str(int(256.0 * (1 - (1 / math.pow(1 + a1 * x/per + a2  * math.pow(x/per,2) + a3 * math.pow(x/per,3) + a4 * math.pow(x/per,4), 4))))) for x in range(0,num_vals-1) ) + '}'
+print '{' + ', '.join(str(math.erf(x)) for x in frange(-1.0,1.0, 1.0/num_vals) ) + '}'
+print '{' + ', '.join(str(int(256.0 * (1 - (1 / math.pow(1 + a1 * x/per + a2  * math.pow(x/per,2) + a3 * math.pow(x/per,3) + a4 * math.pow(x/per,4), 4))))) for x in range(0,num_vals-1) ) + '}'
