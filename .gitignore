@@ -24,6 +24,9 @@ CMakeLists.txt
 .DS_STORE
 /util/wsl_downloaded
 /util/win_downloaded
+/keyboards/*/Makefile
+/keyboards/*/*/Makefile
+/keyboards/*/keymaps/Makefile
 
 # Eclipse/PyCharm/Other IDE Settings
 .cproject
@@ -52,4 +55,7 @@ util/Win_Check_Output.txt
 # things travis sees
 secrets.tar
 id_rsa_*
+<<<<<<< HEAD
 >>>>>>> ed56a6859f6d98974abf9c48c640d7c566be0913
+=======
+>>>>>>> 4cdcbdb861589ae23902d0e9cadcf27453623a79
