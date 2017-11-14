@@ -11,4 +11,6 @@
 #define MOUSEKEY_MAX_SPEED         7
 #define MOUSEKEY_TIME_TO_MAX       25
 
+#define PERMISSIVE_HOLD
+#define FORCE_NKRO
 #define TAPPING_TERM 250
